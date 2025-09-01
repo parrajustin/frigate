@@ -44,6 +44,10 @@
       "playAlertVideos": {
         "label": "Play Alert Videos",
         "desc": "By default, recent alerts on the Live dashboard play as small looping videos. Disable this option to only show a static image of recent alerts on this device/browser."
+      },
+      "defaultLayout": {
+        "label": "Default Live Layout",
+        "desc": "Select the default layout for the live dashboard."
       }
     },
     "storedLayouts": {

@@ -44,7 +44,6 @@ import { useResizeObserver } from "@/hooks/resize-observer";
 import LiveContextMenu from "@/components/menu/LiveContextMenu";
 import { useStreamingSettings } from "@/context/streaming-settings-provider";
 import { useTranslation } from "react-i18next";
-import { LayoutSelector } from "@/components/filter/LayoutSelector";
 
 type LiveDashboardViewProps = {
   cameras: CameraConfig[];
@@ -438,12 +437,6 @@ export default function LiveDashboardView({
         <div className="flex h-11 items-center justify-between">
           <div className="flex items-center gap-2">
             <CameraGroupSelector />
-          </div>
-          <div className="flex items-center gap-2">
-            <LayoutSelector
-              layout={desktopLayout || "auto"}
-              onLayoutChange={setDesktopLayout}
-            />
           </div>
         </div>
       )}
