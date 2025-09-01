@@ -19,6 +19,7 @@ import {
   SelectTrigger,
 } from "../../components/ui/select";
 import { useTranslation } from "react-i18next";
+import { LayoutSelector } from "@/components/filter/LayoutSelector";
 
 const PLAYBACK_RATE_DEFAULT = isSafari ? [0.5, 1, 2] : [0.5, 1, 2, 4, 8, 16];
 const WEEK_STARTS_ON = ["Sunday", "Monday"];
@@ -95,6 +96,10 @@ export default function UiSettingsView() {
   const [playbackRate, setPlaybackRate] = usePersistence("playbackRate", 1);
   const [weekStartsOn, setWeekStartsOn] = usePersistence("weekStartsOn", 0);
   const [alertVideos, setAlertVideos] = usePersistence("alertVideos", true);
+  const [desktopLayout, setDesktopLayout] = usePersistence<string>(
+    "live-layout-desktop",
+    "auto",
+  );
 
   return (
     <>
@@ -177,6 +182,21 @@ export default function UiSettingsView() {
               >
                 {t("general.cameraGroupStreaming.clearAll")}
               </Button>
+            </div>
+
+            <div className="mt-2 space-y-3">
+              <div className="space-y-0.5">
+                <div className="text-md">
+                  {t("general.liveDashboard.defaultLayout.label")}
+                </div>
+                <div className="my-2 max-w-5xl text-sm text-muted-foreground">
+                  <p>{t("general.liveDashboard.defaultLayout.desc")}</p>
+                </div>
+              </div>
+              <LayoutSelector
+                layout={desktopLayout || "auto"}
+                onLayoutChange={setDesktopLayout}
+              />
             </div>
 
             <Separator className="my-2 flex bg-secondary" />
