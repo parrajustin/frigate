@@ -44,6 +44,7 @@ import { useResizeObserver } from "@/hooks/resize-observer";
 import LiveContextMenu from "@/components/menu/LiveContextMenu";
 import { useStreamingSettings } from "@/context/streaming-settings-provider";
 import { useTranslation } from "react-i18next";
+import { LayoutSelector } from "@/components/filter/LayoutSelector";
 
 type LiveDashboardViewProps = {
   cameras: CameraConfig[];
@@ -71,6 +72,31 @@ export default function LiveDashboardView({
     "live-layout",
     isDesktop ? "grid" : "list",
   );
+  const [desktopLayout, setDesktopLayout] = usePersistence<string>(
+    "live-layout-desktop",
+    "auto",
+  );
+
+  const gridClassName = useMemo(() => {
+    if (isMobile) {
+      return mobileLayout === "grid"
+        ? "grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4"
+        : "grid-cols-1";
+    }
+
+    switch (desktopLayout) {
+      case "2":
+        return "grid-cols-2";
+      case "3":
+        return "grid-cols-3";
+      case "4":
+        return "grid-cols-4";
+      case "auto":
+        return "grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4";
+      default:
+        return "grid-cols-1";
+    }
+  }, [mobileLayout, desktopLayout]);
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -409,6 +435,20 @@ export default function LiveDashboardView({
         </div>
       )}
 
+      {isDesktop && (
+        <div className="flex h-11 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <CameraGroupSelector />
+          </div>
+          <div className="flex items-center gap-2">
+            <LayoutSelector
+              layout={desktopLayout}
+              onLayoutChange={setDesktopLayout}
+            />
+          </div>
+        </div>
+      )}
+
       {!fullscreen && events && events.length > 0 && (
         <ScrollArea>
           <TooltipProvider>
@@ -433,9 +473,8 @@ export default function LiveDashboardView({
         <>
           <div
             className={cn(
-              "mt-2 grid grid-cols-1 gap-2 px-2 md:gap-4",
-              mobileLayout == "grid" &&
-                "grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4",
+              "mt-2 grid gap-2 px-2 md:gap-4",
+              gridClassName,
               isMobile && "px-0",
             )}
           >

@@ -263,5 +263,9 @@
     "desc": "Page not found"
   },
   "selectItem": "Select {{item}}",
-  "readTheDocumentation": "Read the documentation"
+  "readTheDocumentation": "Read the documentation",
+  "layout": {
+    "auto": "Auto",
+    "columns": "{{count}} Columns"
+  }
 }
