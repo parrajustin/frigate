@@ -91,10 +91,9 @@ export default function LiveDashboardView({
         return "grid-cols-3";
       case "4":
         return "grid-cols-4";
+      default:
       case "auto":
         return "grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4";
-      default:
-        return "grid-cols-1";
     }
   }, [mobileLayout, desktopLayout]);
 
@@ -442,7 +441,7 @@ export default function LiveDashboardView({
           </div>
           <div className="flex items-center gap-2">
             <LayoutSelector
-              layout={desktopLayout}
+              layout={desktopLayout || "auto"}
               onLayoutChange={setDesktopLayout}
             />
           </div>
