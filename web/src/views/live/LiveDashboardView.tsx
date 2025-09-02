@@ -71,7 +71,7 @@ export default function LiveDashboardView({
     "live-layout",
     isDesktop ? "grid" : "list",
   );
-  const [desktopLayout, setDesktopLayout] = usePersistence<string>(
+  const [desktopLayout] = usePersistence<string>(
     "live-layout-desktop",
     "auto",
   );
